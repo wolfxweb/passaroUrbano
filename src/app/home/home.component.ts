@@ -9,18 +9,28 @@ import { Oferta } from '../model/oferta.model';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers:[OfertasService]// adicionado o serviço via provaider e declado o mesmo no construtor
+  providers: [OfertasService]// adicionado o serviço via provaider e declado o mesmo no construtor
 })
 export class HomeComponent implements OnInit {
 
-  public produtos: Oferta[] =[]
-  constructor( private ofertasService: OfertasService  ) { }
+  public produtos: Oferta[] = []
+  public errors:string = ''
+ 
+  constructor(private ofertasService: OfertasService) { }
 
   ngOnInit(): void {
-    this.produtos = this.ofertasService.getOfertas()// atribui as ofertas a uma variavel local para ser utilziado no template
+    // atribui as ofertas a uma variavel local para ser utilziado no template
+    this.ofertasService.getOferta()
+      .then((ofertas: Oferta[]) => {
+        this.produtos = ofertas
+      
+      })
+      .catch(e=>{
+      
+        this.errors = e.Servidor
+      } )
 
-
-    console.log(this.produtos[0].imagens[0].urlImg)
+    //console.log(this.produtos[0].imagens[0].urlImg)
   }
 
 }

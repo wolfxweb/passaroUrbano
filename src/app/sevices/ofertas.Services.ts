@@ -52,9 +52,20 @@ export class OfertasService{
             ]
         }
     ]
-    public getOfertas():Array<Oferta>{
 
-      
-        return this.ofertas
+    public getOferta(): Promise<Oferta[]>{
+
+        return new Promise((resolve, reject)=>{
+
+            let teste = true
+
+            if(teste){
+                resolve(this.ofertas)
+            }else{
+                reject({codigo_erro: 404, Servidor:"Item não encontado." })
+            }
+
+           
+        })
     }
 }

@@ -9,7 +9,7 @@
 
   <div class="row">
     <div class="col-sm-4" *ngFor="let oferta of produtos">
-      {{oferta.imagens[0]}}
+    
       <div class="card">
         <img class="card-img-top" [src]="oferta.imagens[0].urlImg">
         <div class="card-block">
@@ -21,7 +21,9 @@
       </div>
     </div>
 
-
+    <div class="alert alert-danger" role="alert" *ngIf="errors">
+      {{errors}}
+    </div>
   </div>
   <hr />
   
