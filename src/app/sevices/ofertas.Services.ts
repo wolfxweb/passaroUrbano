@@ -1,71 +1,35 @@
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Oferta } from "../model/oferta.model"
+import { URL_API } from './apiUrl';
+
+@Injectable()
+export class OfertasService {
 
 
-export class OfertasService{
-   
-    public ofertas:Array<Oferta> =[
-        {
-            id: 1,
-            categoria: "restaurante",
-            titulo: "Super Burger",
-            descricao_oferta: "Rodízio de Mini-hambúrger com opção de entrada.",
-            anunciante: "Original Burger",
-            valor: 29.90,
-            destaque: true,
-            imagens: [
-                {urlImg: "/assets/ofertas/1/img1.jpg"},
-                {urlImg: "/assets/ofertas/1/img2.jpg"},
-                {urlImg: "/assets/ofertas/1/img3.jpg"},
-                {urlImg: "/assets/ofertas/1/img4.jpg"}
-            ]
-        },
-        {
-            id: 2,
-            categoria: "restaurante",
-            titulo: "Cozinha Mexicana",
-            descricao_oferta: "Almoço ou Jantar com Rodízio Mexicano delicioso.",
-            anunciante: "Mexicana",
-            valor: 32.90,
-            destaque: true,
-            imagens: [
-                {urlImg: "/assets/ofertas/2/img1.jpg"},
-                {urlImg: "/assets/ofertas/2/img2.jpg"},
-                {urlImg: "/assets/ofertas/2/img3.jpg"},
-                {urlImg: "/assets/ofertas/2/img4.jpg"}
-            ]
+    constructor(private http: HttpClient) { }
+
+
+    public getOferta(): Observable<Oferta[]> {
+
+        return this.http.get<Oferta[]>(`${URL_API}/ofertas`)
         
-        },
-        {
-            id: 4,
-            categoria: "diversao",
-            titulo: "Estância das águas",
-            descricao_oferta: "Diversão garantida com piscinas, trilhas e muito mais.",
-            anunciante: "Estância das águas",
-            valor: 31.90,
-            destaque: true,
-            imagens: [
-                {urlImg: "/assets/ofertas/3/img2.jpg"},
-                {urlImg: "/assets/ofertas/3/img3.jpg"},
-                {urlImg: "/assets/ofertas/3/img4.jpg"},
-                {urlImg: "/assets/ofertas/3/img5.jpg"},
-                {urlImg: "/assets/ofertas/3/img6.jpg"}
-            ]
-        }
-    ]
+    }
 
-    public getOferta(): Promise<Oferta[]>{
+    public getOfertaPorCategoria(categoria:string): Observable<Oferta[]> {
 
-        return new Promise((resolve, reject)=>{
-
-            let teste = true
-
-            if(teste){
-                resolve(this.ofertas)
-            }else{
-                reject({codigo_erro: 404, Servidor:"Item não encontado." })
-            }
-
-           
-        })
+             return this.http.get<Oferta[]>(`${URL_API}/ofertas?categoria=${categoria}`)
+ 
+    }
+    public getOfertaId(id: number): Observable<Oferta[]>{
+        return this.http.get<Oferta[]>(`${URL_API}/ofertas?id=${id}`)
+    }
+    public  getOfertaComoUsarId(id:number){
+        return this.http.get(`${URL_API}/como-usar?id=${id}`)
+    }
+    public getOfertaOndeFicaId(id:number){
+        return this.http.get(`${URL_API}/onde-fica?id=${id}`)
     }
 }

@@ -1,0 +1,16 @@
+img {
+    border-radius: 5px;
+    width: 320px;
+    height: 200px
+}
+
+.container {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.wolfx-card{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+   
+
+}

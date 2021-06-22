@@ -19,18 +19,13 @@ export class HomeComponent implements OnInit {
   constructor(private ofertasService: OfertasService) { }
 
   ngOnInit(): void {
-    // atribui as ofertas a uma variavel local para ser utilziado no template
+    // atribui as ofertas a uma variavel local para ser utilziado no template 
     this.ofertasService.getOferta()
-      .then((ofertas: Oferta[]) => {
-        this.produtos = ofertas
-      
-      })
-      .catch(e=>{
-      
-        this.errors = e.Servidor
-      } )
+      .subscribe(
+        suce => this.produtos = suce
+        
+      )
 
-    //console.log(this.produtos[0].imagens[0].urlImg)
   }
 
 }
